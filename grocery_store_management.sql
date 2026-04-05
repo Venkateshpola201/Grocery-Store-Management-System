@@ -79,50 +79,11 @@ CREATE TABLE IF NOT EXISTS order_details (
 
 
 -- ============================================================
--- SECTION 2: DATA IMPORT INSTRUCTIONS
--- ============================================================
--- After creating the schema, import CSVs in this exact order
--- (parent tables before child tables to respect FK constraints):
---
---   1. supplier         ← from Suppliers.csv
---   2. categories       ← from Categories.csv
---   3. employees        ← from Store_Employees.csv
---   4. customers        ← from Customers.csv
---   5. products         ← from Products.csv
---   6. orders           ← from Orders.csv
---   7. order_details    ← from OrderDetails.csv
---
--- CSV column → Table column mapping:
---   Suppliers.csv     : SupplierID→sup_id, SupplierName→sup_name, Address→address
---   Categories.csv    : CategoryID→cat_id, CategoryName→cat_name
---   Store_Employees   : EmployeeID→emp_id, Name→emp_name, HireDate→hire_date
---   Customers.csv     : CustomerID→cust_id, Name→cust_name, Address→address
---   Products.csv      : ProductID→prod_id, Name→prod_name, SupplierID→sup_id,
---                       CategoryID→cat_id, Price→price
---   Orders.csv        : OrderID→ord_id, CustomerID→cust_id, EmployeeID→emp_id,
---                       OrderDate→order_date
---   OrderDetails.csv  : OrderDetailID→ord_detID, OrderID→ord_id,
---                       ProductID→prod_id, Quantity→quantity,
---                       PriceEach→each_price, TotalPrice→total_price
---
--- In MySQL Workbench: Table Data Import Wizard (right-click table → Import Wizard)
--- OR use LOAD DATA INFILE (adjust path as needed):
---
--- LOAD DATA INFILE '/path/to/Suppliers.csv'
--- INTO TABLE supplier
--- FIELDS TERMINATED BY ',' ENCLOSED BY '"'
--- LINES TERMINATED BY '\n'
--- IGNORE 1 ROWS
--- (sup_id, sup_name, address);
--- ============================================================
-
-
--- ============================================================
--- SECTION 3: ANALYSIS QUERIES
+-- SECTION 2: ANALYSIS QUERIES
 -- ============================================================
 
 -- ────────────────────────────────────────────────────────────
--- 3.1  CUSTOMER INSIGHTS
+-- 2.1  CUSTOMER INSIGHTS
 -- ────────────────────────────────────────────────────────────
 
 -- Q1. How many unique customers have placed orders?
@@ -163,7 +124,7 @@ LIMIT 5;
 
 
 -- ────────────────────────────────────────────────────────────
--- 3.2  PRODUCT PERFORMANCE
+-- 2.2  PRODUCT PERFORMANCE
 -- ────────────────────────────────────────────────────────────
 
 -- Q5. How many products exist in each category?
@@ -218,7 +179,7 @@ ORDER BY revenue DESC;
 
 
 -- ────────────────────────────────────────────────────────────
--- 3.3  SALES AND ORDER TRENDS
+-- 2.3  SALES AND ORDER TRENDS
 -- ────────────────────────────────────────────────────────────
 
 -- Q10. Total number of orders placed
@@ -267,7 +228,7 @@ GROUP BY day_type;
 
 
 -- ────────────────────────────────────────────────────────────
--- 3.4  SUPPLIER CONTRIBUTION
+-- 2.4  SUPPLIER CONTRIBUTION
 -- ────────────────────────────────────────────────────────────
 
 -- Q15. How many suppliers are in the database?
@@ -305,7 +266,7 @@ ORDER BY total_revenue DESC;
 
 
 -- ────────────────────────────────────────────────────────────
--- 3.5  EMPLOYEE PERFORMANCE
+-- 2.5  EMPLOYEE PERFORMANCE
 -- ────────────────────────────────────────────────────────────
 
 -- Q19. How many employees have processed orders?
@@ -347,7 +308,7 @@ ORDER BY avg_order_value DESC;
 
 
 -- ────────────────────────────────────────────────────────────
--- 3.6  ORDER DETAILS DEEP DIVE
+-- 2.6  ORDER DETAILS DEEP DIVE
 -- ────────────────────────────────────────────────────────────
 
 -- Q23. Relationship between quantity ordered and total price (correlation view)
